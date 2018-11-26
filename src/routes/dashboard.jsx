@@ -1,11 +1,11 @@
-import Dashboard from "views/Dashboard/Dashboard.jsx";
+import Dashboard from "../views/Dashboard/Dashboard.jsx";
 // import Notifications from "views/Notifications/Notifications.jsx";
 // import Icons from "views/Icons/Icons.jsx";
 // import Typography from "views/Typography/Typography.jsx";
 // import TableList from "views/TableList/TableList.jsx";
-import Pedidos from "views/Pedidos/Pedidos.jsx";
-import Doacoes from "views/Doacoes/Doacoes.jsx";
-import Login from "views/Login/Login.jsx";
+import Pedidos from "../views/Pedidos/Pedidos.jsx";
+import Doacoes from "../views/Doacoes/Doacoes.jsx";
+import Login from "../views/Login/Login.jsx";
 // import Maps from "views/Maps/Maps.jsx";
 // import Upgrade from "views/Upgrade/Upgrade.jsx";
 // import UserPage from "views/UserPage/UserPage.jsx";

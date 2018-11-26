@@ -17,7 +17,7 @@ import React from "react";
 // import { Line, Bar } from "react-chartjs-2";
 // function that returns a color based on an interval of numbers
 
-import { PanelHeader } from "components";
+import { PanelHeader } from "../../components";
 // import { PanelHeader, Stats, CardCategory } from "components";
 
 // import {

@@ -8,7 +8,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { PanelHeader } from "components";
+import { PanelHeader } from "../../components";
 import api from "../../services/api";
 
 class TelaDoacoes extends React.Component {

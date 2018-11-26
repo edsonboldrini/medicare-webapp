@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "homepage": "https://creativetimofficial.github.io/now-ui-dashboard-react/#/dashboard",
   "dependencies": {
+    "@emotion/core": "^10.0.0-beta.13",
     "@types/googlemaps": "3.30.12",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.4.12",
@@ -22,6 +23,7 @@
     "react": "16.4.2",
     "react-chartjs-2": "2.7.4",
     "react-dom": "16.4.2",
+    "react-emotion": "^9.2.12",
     "react-google-maps": "9.4.5",
     "react-notification-alert": "0.0.8",
     "react-router-dom": "4.3.1",

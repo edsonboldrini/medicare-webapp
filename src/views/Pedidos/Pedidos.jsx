@@ -9,7 +9,7 @@ import {
   Col
 } from "reactstrap";
 
-import { PanelHeader } from "components";
+import { PanelHeader } from "../../components";
 
 import api from "../../services/api";
 
