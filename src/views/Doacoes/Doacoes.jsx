@@ -8,16 +8,14 @@ import {
   Row,
   Col
 } from "reactstrap";
-
 import { PanelHeader } from "components";
-
 import api from "../../services/api";
 
 class TelaDoacoes extends React.Component {
   state = {
     error: "",
     listaDoacoes: [],
-    precisaAtualizar: ""
+    esperandoAjax: true
   };
 
   async atualizarLista() {
@@ -30,6 +28,7 @@ class TelaDoacoes extends React.Component {
           console.log("recebeu retorno");
           console.log(res);        
           if(JSON.stringify(this.state.listaDoacoes) !== JSON.stringify(res.data)){
+            this.setState({ esperandoAjax: false });
             this.setState({ listaDoacoes: res.data });
             console.log("alterou estado");
             console.log(res.data);
@@ -51,14 +50,11 @@ class TelaDoacoes extends React.Component {
     this.atualizarLista();
   }
 
-  montaMensagemNenhumDado(){
-    return (
-      <div className="typography-line">
-          <h4>
-            Ainda não há nenhuma doação cadastrada!
-          </h4>
-        </div>
-    )
+
+
+  formataData = (dateString) => {
+    const data = new Date(dateString);
+    return data.toLocaleDateString("pt-Br");
   }
 
   montaTabela(){
@@ -67,19 +63,22 @@ class TelaDoacoes extends React.Component {
         <thead className="text-primary">
           <tr>
             <th className="text-left">Remédio</th>
-            <th className="text-left">Tamanho</th>
-            <th className="text-left">Quantidade</th>
-            <th className="text-left">Status</th> 
+            <th className="text-center">Tamanho</th>
+            <th className="text-center">Quantidade</th>
+            <th className="text-center">Status</th> 
+            <th className="text-center">Data</th> 
+            <th className="text-right" style={{ paddingRight: 25 }}>Ações</th> 
           </tr>
         </thead>
         <tbody>
           {this.state.listaDoacoes.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.nomeRemedio}</td>
-                <td>{item.tamanho}</td>
-                <td>{item.quantidade}</td>
-                <td>{item.status}</td>
+                <td>{item.nomeMedicamento}</td>
+                <td className="text-center">{item.tamanho + " mg"}</td>
+                <td className="text-center">{item.quantidade}</td>
+                <td className="text-center">{item.status}</td>
+                <td className="text-center">{this.formataData(item.dataCadastro) }</td>
                 <td className="text-right">
                   <button className="btn-icon btn btn-info btn-sm m-r-3">
                     <i className="now-ui-icons users_single-02"></i>
@@ -99,6 +98,28 @@ class TelaDoacoes extends React.Component {
     )
   }
 
+  montaMensagemNenhumDado(){
+    return (
+      <div className="typography-line">
+          <h4>
+            Ainda não há nenhuma doação cadastrada!
+          </h4>
+        </div>
+    )
+  }
+
+  montaExibicao(){
+    if(this.state.esperandoAjax){
+      return null;
+    }
+    else if (this.state.listaDoacoes.length > 0){
+      return this.montaTabela();
+    }
+    else{
+      return this.montaMensagemNenhumDado();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -112,7 +133,7 @@ class TelaDoacoes extends React.Component {
                   <CardTitle tag="h4">Lista de Doações</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  { this.state.listaDoacoes.length > 0 ? this.montaTabela() : this.montaMensagemNenhumDado(0)}
+                  { this.montaExibicao() }
                 </CardBody>
               </Card>
             </Col>

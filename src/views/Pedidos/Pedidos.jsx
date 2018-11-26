@@ -17,7 +17,7 @@ class TelaPedidos extends React.Component {
   state = {
     error: "",
     listaPedidos: [],
-    precisaAtualizar: ""
+    esperandoAjax: true
   };
 
   async atualizarLista() {
@@ -60,6 +60,11 @@ class TelaPedidos extends React.Component {
     )
   }
 
+  formataData = (dateString) => {
+    const data = new Date(dateString);
+    return data.toLocaleDateString("pt-Br");
+  }
+
   montaTabela(){
     return (
       <Table responsive>
@@ -69,6 +74,7 @@ class TelaPedidos extends React.Component {
             <th className="text-center">Tamanho</th>
             <th className="text-center">Quantidade</th>
             <th className="text-center">Status</th>
+            <th className="text-center">Data</th> 
             <th className="text-right" style={{ paddingRight: 25 }}>Ações</th> 
           </tr>
         </thead>
@@ -77,9 +83,10 @@ class TelaPedidos extends React.Component {
             return (
               <tr key={item._id}>
                 <td>{item.nomeRemedio}</td>
-                <td className="text-center">{item.tamanho}</td>
+                <td className="text-center">{item.tamanho  + " mg"}</td>
                 <td className="text-center">{item.quantidade}</td>
                 <td className="text-center">{item.status}</td>
+                <td className="text-center">{this.formataData(item.dataCadastro) }</td>
                 <td className="text-right">
                   <button className="btn-icon btn btn-info btn-sm m-r-3">
                     <i className="now-ui-icons users_single-02"></i>
@@ -112,7 +119,7 @@ class TelaPedidos extends React.Component {
                   <CardTitle tag="h4">Lista de Pedidos</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  { this.state.listaPedidos.length > 0 ? this.montaTabela() : this.montaMensagemNenhumDado(0)}
+                  { this.state.listaPedidos.length > 0 ? this.montaTabela() : this.montaMensagemNenhumDado()}
                 </CardBody>
               </Card>
             </Col>

@@ -30,6 +30,12 @@ var dashRoutes = [
     component: Doacoes
   },
   {
+    path: "/medicamentos",
+    name: "Medicamentos",
+    icon: "files_paper",
+    component: Doacoes
+  },
+  {
     path: "/usuarios",
     name: "Usuários",
     icon: "files_paper",
@@ -37,18 +43,24 @@ var dashRoutes = [
   },
 
   {
+    path: "/login",
+    name: "Login",
+    icon: "files_paper",
+    component: Login,
+    invisible: true
+  },
+  {
     path: "/doacoes2/",
     name: "Exibir Doação",
     icon: "files_paper",
     component: Doacoes,
     invisible: true
   },
-
   {
-    path: "/login",
-    name: "Login",
+    path: "/editar-medicamento",
+    name: "Editar Medicamento",
     icon: "files_paper",
-    component: Login,
+    component: Doacoes,
     invisible: true
   },
   // { path: "/icons", name: "Icons", icon: "design_image", component: Icons },
