@@ -8,9 +8,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-
 import { PanelHeader } from "../../components";
-
 import api from "../../services/api";
 
 class TelaPedidos extends React.Component {
@@ -52,12 +50,24 @@ class TelaPedidos extends React.Component {
 
   montaMensagemNenhumDado(){
     return (
-      <div className="typography-line">
-          <h4>
-            Ainda não há nenhum pedido cadastrada!
-          </h4>
-        </div>
+      <div className="">
+        <h6>
+          Ainda não há nenhum pedido cadastrado!
+        </h6>
+      </div>
     )
+  }
+
+  montaExibicao(){
+    if(this.state.esperandoAjax){
+      return (<h6>Erro na conexão com o banco de dados</h6>);
+    }
+    else if (this.state.listaMedicamentos.length > 0){
+      return this.montaTabela();
+    }
+    else{
+      return this.montaMensagemNenhumDado();
+    }
   }
 
   formataData = (dateString) => {
@@ -119,7 +129,7 @@ class TelaPedidos extends React.Component {
                   <CardTitle tag="h4">Lista de Pedidos</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  { this.state.listaPedidos.length > 0 ? this.montaTabela() : this.montaMensagemNenhumDado()}
+                  { this.montaExibicao() }
                 </CardBody>
               </Card>
             </Col>

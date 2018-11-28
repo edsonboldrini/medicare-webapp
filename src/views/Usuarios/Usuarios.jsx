@@ -11,25 +11,25 @@ import {
 import { PanelHeader } from "../../components";
 import api from "../../services/api";
 
-class TelaDoacoes extends React.Component {
+class TelaUsuarios extends React.Component {
   state = {
     error: "",
-    listaDoacoes: [],
+    listaMedicamentos: [],
     esperandoAjax: true
   };
 
   async atualizarLista() {
     try {
-      console.log("entrou para atualizar lista de pedidos");
+      console.log("entrou para atualizar lista de usuários");
 
       await api
-        .get("/doacoes")
+        .get("/usuarios")
         .then(res => {
           console.log("recebeu retorno");
           console.log(res);        
-          if(JSON.stringify(this.state.listaDoacoes) !== JSON.stringify(res.data)){
+          if(JSON.stringify(this.state.listaMedicamentos) !== JSON.stringify(res.data)){
             this.setState({ esperandoAjax: false });
-            this.setState({ listaDoacoes: res.data });
+            this.setState({ listaMedicamentos: res.data });
             console.log("alterou estado");
             console.log(res.data);
           }        
@@ -42,7 +42,7 @@ class TelaDoacoes extends React.Component {
     } 
     catch(err){
       console.log(err);
-      this.setState({ error: 'Ocorreu um erro ao atualizar a lista de pedidos!' });
+      this.setState({ error: 'Ocorreu um erro ao atualizar a lista de usuários!' });
     }
   }
 
@@ -71,7 +71,7 @@ class TelaDoacoes extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.listaDoacoes.map((item, index) => {
+          {this.state.listaMedicamentos.map((item, index) => {
             return (
               <tr key={item._id}>
                 <td>{item.nomeMedicamento}</td>
@@ -102,7 +102,7 @@ class TelaDoacoes extends React.Component {
     return (
       <div className="typography-line">
         <h6>
-          Ainda não há nenhuma doação cadastrada!
+          Ainda não há nenhum usuário cadastrado!
         </h6>
       </div>
     )
@@ -130,11 +130,11 @@ class TelaDoacoes extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Lista de Doações</CardTitle>
+                  <CardTitle tag="h4">Lista de Usuários</CardTitle>
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }
-                </CardBody>                
+                </CardBody>
               </Card>
             </Col>
 
@@ -145,4 +145,4 @@ class TelaDoacoes extends React.Component {
   }
 }
 
-export default TelaDoacoes;
+export default TelaUsuarios;
