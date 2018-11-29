@@ -16,7 +16,7 @@ var dashRoutes = [
   {
     path: "/dashboard",
     name: "Home",
-    icon: "design_app",
+    icon: "business_globe",
     component: Dashboard
   },
   {
@@ -28,19 +28,19 @@ var dashRoutes = [
   {
     path: "/doacoes",
     name: "Doações",
-    icon: "files_paper",
+    icon: "emoticons_satisfied",
     component: TelaDoacoes
   },
   {
     path: "/medicamentos",
     name: "Medicamentos",
-    icon: "files_paper",
+    icon: "design_app",
     component: TelaMedicamentos
   },
   {
     path: "/usuarios",
     name: "Usuários",
-    icon: "files_paper",
+    icon: "users_single-02",
     component: TelaUsuarios
   },
 
