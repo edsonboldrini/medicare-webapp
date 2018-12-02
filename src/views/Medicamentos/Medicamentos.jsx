@@ -6,30 +6,31 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 import { PanelHeader } from "../../components";
 import api from "../../services/api";
 
-class TelaMedicamentos extends React.Component {
+class Medicamentos extends React.Component {
   state = {
     error: "",
-    listaMedicamentos: [],
+    listaDoacoes: [],
     esperandoAjax: true
   };
 
   async atualizarLista() {
     try {
-      console.log("entrou para atualizar lista de medicamentos");
+      console.log("entrou para atualizar lista de pedidos");
 
       await api
-        .get("/medicamentos")
+        .get("/doacoes")
         .then(res => {
           console.log("recebeu retorno");
           console.log(res);        
-          if(JSON.stringify(this.state.listaMedicamentos) !== JSON.stringify(res.data)){
+          if(JSON.stringify(this.state.listaDoacoes) !== JSON.stringify(res.data)){
             this.setState({ esperandoAjax: false });
-            this.setState({ listaMedicamentos: res.data });
+            this.setState({ listaDoacoes: res.data });
             console.log("alterou estado");
             console.log(res.data);
           }        
@@ -71,7 +72,7 @@ class TelaMedicamentos extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.listaMedicamentos.map((item, index) => {
+          {this.state.listaDoacoes.map((item, index) => {
             return (
               <tr key={item._id}>
                 <td>{item.nomeMedicamento}</td>
@@ -101,18 +102,18 @@ class TelaMedicamentos extends React.Component {
   montaMensagemNenhumDado(){
     return (
       <div className="typography-line">
-        <h6>
-          Ainda não há nenhum medicamento cadastrado cadastrada!
-        </h6>
-      </div>
+          <h4>
+            Ainda não há nenhuma doação cadastrada!
+          </h4>
+        </div>
     )
   }
 
   montaExibicao(){
     if(this.state.esperandoAjax){
-      return (<h6>Erro na conexão com o banco de dados</h6>);
+      return null;
     }
-    else if (this.state.listaMedicamentos.length > 0){
+    else if (this.state.listaDoacoes.length > 0){
       return this.montaTabela();
     }
     else{
@@ -130,7 +131,8 @@ class TelaMedicamentos extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Lista de Medicamentos</CardTitle>
+                  <CardTitle className="float-left">Lista de Medicamentos</CardTitle>
+                  <Button color="info" className="float-right" href="/novo-medicamento">Adicionar</Button>
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }
@@ -145,4 +147,4 @@ class TelaMedicamentos extends React.Component {
   }
 }
 
-export default TelaMedicamentos;
+export default Medicamentos;

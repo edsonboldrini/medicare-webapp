@@ -6,9 +6,12 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
+
 import { PanelHeader } from "../../components";
+
 import api from "../../services/api";
 
 class TelaPedidos extends React.Component {
@@ -27,6 +30,7 @@ class TelaPedidos extends React.Component {
         .then(res => {
           console.log("recebeu retorno");        
           if(JSON.stringify(this.state.listaPedidos) !== JSON.stringify(res.data)){
+            this.setState({ esperandoAjax: false });
             this.setState({ listaPedidos: res.data });
             console.log("alterou estado");
             console.log(res.data);
@@ -50,24 +54,12 @@ class TelaPedidos extends React.Component {
 
   montaMensagemNenhumDado(){
     return (
-      <div className="">
-        <h6>
-          Ainda não há nenhum pedido cadastrado!
-        </h6>
-      </div>
+      <div className="typography-line">
+          <h4>
+            Ainda não há nenhum pedido cadastrada!
+          </h4>
+        </div>
     )
-  }
-
-  montaExibicao(){
-    if(this.state.esperandoAjax){
-      return (<h6>Erro na conexão com o banco de dados</h6>);
-    }
-    else if (this.state.listaMedicamentos.length > 0){
-      return this.montaTabela();
-    }
-    else{
-      return this.montaMensagemNenhumDado();
-    }
   }
 
   formataData = (dateString) => {
@@ -75,6 +67,10 @@ class TelaPedidos extends React.Component {
     return data.toLocaleDateString("pt-Br");
   }
 
+  novoPedidoClicado = () => {
+    this.props.navigation.navigate('NovoPedido')
+  }
+ 
   montaTabela(){
     return (
       <Table responsive>
@@ -116,6 +112,18 @@ class TelaPedidos extends React.Component {
     )
   }
 
+  montaExibicao(){
+    if(this.state.esperandoAjax){
+      return null;
+    }
+    else if (this.state.listaPedidos.length > 0){
+      return this.montaTabela();
+    }
+    else{
+      return this.montaMensagemNenhumDado();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -126,7 +134,8 @@ class TelaPedidos extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Lista de Pedidos</CardTitle>
+                  <CardTitle className="float-left">Lista de Pedidos</CardTitle>
+                  <Button color="info" className="float-right" href="/novo-pedido">Adicionar</Button>
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }

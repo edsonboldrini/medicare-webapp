@@ -3,16 +3,11 @@ import Dashboard from "../views/Dashboard/Dashboard.jsx";
 // import Icons from "views/Icons/Icons.jsx";
 // import Typography from "views/Typography/Typography.jsx";
 // import TableList from "views/TableList/TableList.jsx";
-import Pedidos from "../views/Pedidos/Pedidos.jsx";
-import Doacoes from "../views/Doacoes/Doacoes.jsx";
-import Medicamentos from "../views/Medicamentos/Medicamentos.jsx";
-import Usuarios from "../views/Usuarios/Usuarios.jsx";
 import Login from "../views/Login/Login.jsx";
-import NovoPedido from "../views/NovoPedido/NovoPedido.jsx";
-import NovaDoacao from "../views/NovaDoacao/NovaDoacao.jsx";
-import NovoMedicamento from "../views/NovoMedicamento/NovoMedicamento.jsx";
-import NovoUsuario from "../views/NovoUsuario/NovoUsuario.jsx";
-
+import TelaPedidos from "../views/Pedidos/Pedidos.jsx";
+import TelaDoacoes from "../views/Doacoes/Doacoes.jsx";
+import TelaMedicamentos from "../views/Medicamentos/Medicamentos.jsx";
+import TelaUsuarios from "../views/Usuarios/Usuarios.jsx";
 // import Maps from "views/Maps/Maps.jsx";
 // import Upgrade from "views/Upgrade/Upgrade.jsx";
 // import UserPage from "views/UserPage/UserPage.jsx";
@@ -21,32 +16,32 @@ var dashRoutes = [
   {
     path: "/dashboard",
     name: "Home",
-    icon: "design_app",
+    icon: "business_globe",
     component: Dashboard
   },
   {
     path: "/pedidos",
     name: "Pedidos",
     icon: "files_paper",
-    component: Pedidos
+    component: TelaPedidos
   },
   {
     path: "/doacoes",
     name: "Doações",
     icon: "emoticons_satisfied",
-    component: Doacoes
+    component: TelaDoacoes
   },
   {
     path: "/medicamentos",
     name: "Medicamentos",
-    icon: "education_atom",
-    component: Medicamentos
+    icon: "design_app",
+    component: TelaMedicamentos
   },
   {
     path: "/usuarios",
     name: "Usuários",
     icon: "users_single-02",
-    component: Usuarios
+    component: TelaUsuarios
   },
 
   {
@@ -57,45 +52,17 @@ var dashRoutes = [
     invisible: true
   },
   {
-    path: "/doacoes2/",
+    path: "/doacao/",
     name: "Exibir Doação",
     icon: "files_paper",
-    component: Doacoes,
+    component: TelaMedicamentos,
     invisible: true
   },
   {
     path: "/editar-medicamento",
     name: "Editar Medicamento",
     icon: "files_paper",
-    component: Doacoes,
-    invisible: true
-  },
-  {
-    path: "/novo-pedido",
-    name: "Novo Pedido",
-    icon: "files_paper",
-    component: NovoPedido,
-    invisible: true
-  },
-  {
-    path: "/nova-doacao",
-    name: "Nova Doação",
-    icon: "files_paper",
-    component: NovaDoacao,
-    invisible: true
-  },
-  {
-    path: "/novo-medicamento",
-    name: "Novo Medicamento",
-    icon: "files_paper",
-    component: NovoMedicamento,
-    invisible: true
-  },
-  {
-    path: "/novo-usuario",
-    name: "Novo Usuário",
-    icon: "files_paper",
-    component: NovoUsuario,
+    component: TelaMedicamentos,
     invisible: true
   },
   // { path: "/icons", name: "Icons", icon: "design_image", component: Icons },

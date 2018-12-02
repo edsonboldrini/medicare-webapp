@@ -6,7 +6,8 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 import { PanelHeader } from "../../components";
 import api from "../../services/api";
@@ -101,18 +102,18 @@ class TelaDoacoes extends React.Component {
   montaMensagemNenhumDado(){
     return (
       <div className="typography-line">
-        <h6>
-          Ainda não há nenhuma doação cadastrada!
-        </h6>
-      </div>
+          <h4>
+            Ainda não há nenhuma doação cadastrada!
+          </h4>
+        </div>
     )
   }
 
   montaExibicao(){
     if(this.state.esperandoAjax){
-      return (<h6>Erro na conexão com o banco de dados</h6>);
+      return null;
     }
-    else if (this.state.listaMedicamentos.length > 0){
+    else if (this.state.listaDoacoes.length > 0){
       return this.montaTabela();
     }
     else{
@@ -130,11 +131,12 @@ class TelaDoacoes extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Lista de Doações</CardTitle>
+                  <CardTitle className="float-left">Lista de Doações</CardTitle>
+                  <Button color="info" className="float-right" href="/nova-doacao">Adicionar</Button>
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }
-                </CardBody>                
+                </CardBody>
               </Card>
             </Col>
 
