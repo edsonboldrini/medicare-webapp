@@ -15,7 +15,7 @@ import api from "../../services/api";
 class Medicamentos extends React.Component {
   state = {
     error: "",
-    listaDoacoes: [],
+    listaMedicamentos: [],
     esperandoAjax: true
   };
 
@@ -24,24 +24,24 @@ class Medicamentos extends React.Component {
       console.log("entrou para atualizar lista de pedidos");
 
       await api
-        .get("/doacoes")
+        .get("/medicamentos")
         .then(res => {
           console.log("recebeu retorno");
-          console.log(res);        
-          if(JSON.stringify(this.state.listaDoacoes) !== JSON.stringify(res.data)){
+          console.log(res);
+          if (JSON.stringify(this.state.listaMedicamentos) !== JSON.stringify(res.data)) {
             this.setState({ esperandoAjax: false });
-            this.setState({ listaDoacoes: res.data });
+            this.setState({ listaMedicamentos: res.data });
             console.log("alterou estado");
             console.log(res.data);
-          }        
+          }
         })
         .catch(res => {
           console.log(res);
           this.setState({ error: JSON.stringify(res) + "" });
         });
 
-    } 
-    catch(err){
+    }
+    catch (err) {
       console.log(err);
       this.setState({ error: 'Ocorreu um erro ao atualizar a lista de pedidos!' });
     }
@@ -58,28 +58,28 @@ class Medicamentos extends React.Component {
     return data.toLocaleDateString("pt-Br");
   }
 
-  montaTabela(){
+  montaTabela() {
     return (
       <Table responsive>
         <thead className="text-primary">
           <tr>
             <th className="text-left">Remédio</th>
-            <th className="text-center">Tamanho</th>
+            {/* <th className="text-center">Tamanho</th>
             <th className="text-center">Quantidade</th>
-            <th className="text-center">Status</th> 
-            <th className="text-center">Data</th> 
-            <th className="text-right" style={{ paddingRight: 25 }}>Ações</th> 
+            <th className="text-center">Status</th>
+            <th className="text-center">Data</th> */}
+            <th className="text-right" style={{ paddingRight: 25 }}>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.listaDoacoes.map((item, index) => {
+          {this.state.listaMedicamentos.map((item, index) => {
             return (
               <tr key={item._id}>
                 <td>{item.nomeMedicamento}</td>
-                <td className="text-center">{item.tamanho + " mg"}</td>
+                {/* <td className="text-center">{item.tamanho + " mg"}</td>
                 <td className="text-center">{item.quantidade}</td>
                 <td className="text-center">{item.status}</td>
-                <td className="text-center">{this.formataData(item.dataCadastro) }</td>
+                <td className="text-center">{this.formataData(item.dataCadastro)}</td> */}
                 <td className="text-right">
                   <button className="btn-icon btn btn-info btn-sm m-r-3">
                     <i className="now-ui-icons users_single-02"></i>
@@ -99,24 +99,32 @@ class Medicamentos extends React.Component {
     )
   }
 
-  montaMensagemNenhumDado(){
+  montaMensagemNenhumDado() {
     return (
       <div className="typography-line">
-          <h4>
-            Ainda não há nenhuma doação cadastrada!
+        <h4>
+          Ainda não há nenhuma doação cadastrada!
           </h4>
-        </div>
+      </div>
     )
   }
 
-  montaExibicao(){
-    if(this.state.esperandoAjax){
-      return null;
+  montaExibicao() {
+    if (this.state.esperandoAjax) {
+      return (
+        <Table responsive>
+          <thead className="text-primary">
+            <tr>
+              <th className="text-left">Falha de conexao com a API</th>
+            </tr>
+          </thead>
+        </Table>
+      );
     }
-    else if (this.state.listaDoacoes.length > 0){
+    else if (this.state.listaMedicamentos.length > 0) {
       return this.montaTabela();
     }
-    else{
+    else {
       return this.montaMensagemNenhumDado();
     }
   }
@@ -135,7 +143,7 @@ class Medicamentos extends React.Component {
                   <Button color="info" className="float-right" href="/novo-medicamento">Adicionar</Button>
                 </CardHeader>
                 <CardBody>
-                  { this.montaExibicao() }
+                  {this.montaExibicao()}
                 </CardBody>
               </Card>
             </Col>

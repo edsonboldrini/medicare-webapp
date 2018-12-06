@@ -24,24 +24,24 @@ class Usuarios extends React.Component {
       console.log("entrou para atualizar lista de usuarios");
 
       await api
-        .get("/doacoes")
+        .get("/users")
         .then(res => {
           console.log("recebeu retorno");
-          console.log(res);        
-          if(JSON.stringify(this.state.listaDoacoes) !== JSON.stringify(res.data)){
+          console.log(res);
+          if (JSON.stringify(this.state.listaUsuarios) !== JSON.stringify(res.data)) {
             this.setState({ esperandoAjax: false });
             this.setState({ listaUsuarios: res.data });
             console.log("alterou estado");
             console.log(res.data);
-          }        
+          }
         })
         .catch(res => {
           console.log(res);
           this.setState({ error: JSON.stringify(res) + "" });
         });
 
-    } 
-    catch(err){
+    }
+    catch (err) {
       console.log(err);
       this.setState({ error: 'Ocorreu um erro ao atualizar a lista de usuários!' });
     }
@@ -56,26 +56,26 @@ class Usuarios extends React.Component {
     return data.toLocaleDateString("pt-Br");
   }
 
-  montaTabela(){
+  montaTabela() {
     return (
       <Table responsive>
         <thead className="text-primary">
           <tr>
-            <th className="text-left">Nome</th>
-            <th className="text-center">Email</th>
+            {/* <th className="text-left">Nome</th> */}
+            <th className="text-left">Email</th>
             <th className="text-center">Tipo</th>
-            <th className="text-center">Data de Cadastro</th> 
-            <th className="text-right" style={{ paddingRight: 25 }}>Ações</th> 
+            <th className="text-center">Data de Cadastro</th>
+            <th className="text-right" style={{ paddingRight: 25 }}>Ações</th>
           </tr>
         </thead>
         <tbody>
           {this.state.listaUsuarios.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.nomeMedicamento}</td>
-                <td className="text-center">{item.tamanho + " mg"}</td>
-                <td className="text-center">{item.quantidade}</td>
-                <td className="text-center">{this.formataData(item.dataCadastro) }</td>
+                {/* <td>{item.nome}</td> */}
+                <td className="text-left">{item.email}</td>
+                <td className="text-center">{item.tipo == 1 ? "Cliente" : "Farmaceutico"}</td>
+                <td className="text-center">{this.formataData(item.dataCadastro)}</td>
                 <td className="text-right">
                   <button className="btn-icon btn btn-info btn-sm m-r-3">
                     <i className="now-ui-icons users_single-02"></i>
@@ -95,24 +95,32 @@ class Usuarios extends React.Component {
     )
   }
 
-  montaMensagemNenhumDado(){
+  montaMensagemNenhumDado() {
     return (
       <div className="typography-line">
-          <h4>
-            Ainda não há nenhum usuário cadastrado!
+        <h4>
+          Ainda não há nenhum usuário cadastrado!
           </h4>
-        </div>
+      </div>
     )
   }
 
-  montaExibicao(){
-    if(this.state.esperandoAjax){
-      return null;
+  montaExibicao() {
+    if (this.state.esperandoAjax) {
+      return (
+        <Table responsive>
+          <thead className="text-primary">
+            <tr>
+              <th className="text-left">Falha de conexao com a API</th>
+            </tr>
+          </thead>
+        </Table>
+      );
     }
-    else if (this.state.listaUsuarios.length > 0){
+    else if (this.state.listaUsuarios.length > 0) {
       return this.montaTabela();
     }
-    else{
+    else {
       return this.montaMensagemNenhumDado();
     }
   }
@@ -126,12 +134,12 @@ class Usuarios extends React.Component {
 
             <Col xs={12}>
               <Card>
-              <CardHeader>
+                <CardHeader>
                   <CardTitle className="float-left">Lista de Usuarios</CardTitle>
                   <Button color="info" className="float-right" href="/novo-usuario">Adicionar</Button>
                 </CardHeader>
                 <CardBody>
-                  { this.montaExibicao() }
+                  {this.montaExibicao()}
                 </CardBody>
               </Card>
             </Col>
