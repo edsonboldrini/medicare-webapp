@@ -113,8 +113,16 @@ class TelaPedidos extends React.Component {
   }
 
   montaExibicao(){
-    if(this.state.esperandoAjax){
-      return null;
+    if (this.state.esperandoAjax) {
+      return (
+        <Table responsive>
+          <thead className="text-primary">
+            <tr>
+              <th className="text-left">Falha de conexao com a API</th>
+            </tr>
+          </thead>
+        </Table>
+      );
     }
     else if (this.state.listaPedidos.length > 0){
       return this.montaTabela();
