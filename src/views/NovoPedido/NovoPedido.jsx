@@ -25,18 +25,25 @@ class NovoPedido extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();      
+
+    var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     
-    this.setState({dataCadastro: new Date() })
+    this.state.dataCadastro = date;
+    this.state.status = 'PENDENTE';
     
-    const { nomeRemedio, quantidade, status, dataCadatro } = this.state;
-    console.log('Medicamento = ' + nomeRemedio);
-    console.log('Data do cadastro = ' + dataCadatro);
+    const { nomeRemedio, quantidade, status, dataCadatro, nomeMedico } = this.state;
+    console.log('medicamento = ' + nomeRemedio);
+    console.log('quantidade = ' + quantidade);
+    console.log('status = ' + status);
+    console.log('dataCadastro = ' + dataCadatro);
+    console.log('nomeMedico = ' + nomeMedico);
 
     try {
       console.log("Entrou para adicionar pedido!");
 
       await api
-        .post("/pedidos", {'nomeRemedio': nomeRemedio, 'quantidade': quantidade, 'status': status, 'dataCadastro': dataCadatro })
+        .post("/pedidos", {'nomeRemedio': nomeRemedio, 'quantidade': quantidade, 'status': status, 'dataCadastro': dataCadatro, 'nomeMedico': nomeMedico })
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);
@@ -94,18 +101,7 @@ class NovoPedido extends React.Component {
 
                     <FormInputs
                       ncols={["col-md-12"]}
-                      proprieties={[
-                        // {
-                        //   label: "Tamanho",
-                        //   inputProps: {
-                        //     type: "number",
-                        //     placeholder: "",
-                        //     defaultValue: "",
-                        //     name: "tamanho",
-                        //     value: this.state.tamanho,
-                        //     onChange: this.handleChange
-                        //   }
-                        // },
+                      proprieties={[                        
                         {
                           label: "Quantidade",
                           inputProps: {

@@ -115,7 +115,7 @@ class Medicamentos extends React.Component {
         <Table responsive>
           <thead className="text-primary">
             <tr>
-              <th className="text-left">Falha de conexao com a API</th>
+              <th className="text-left">Carregando...</th>
             </tr>
           </thead>
         </Table>

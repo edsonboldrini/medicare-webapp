@@ -2,8 +2,69 @@ import React from "react";
 import { Card, CardHeader, CardBody, CardFooter, Button, Row, Col } from "reactstrap";
 
 import { PanelHeader, FormInputs, CardAuthor, CardSocials } from "../../components";
+import api from "../../services/api";
 
 class NovaDoacao extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nomeMedicamento: '',
+      quantidade: '',
+      status: '',
+      dataCadatro: '',
+      dataValidade: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();      
+    
+    this.setState({dataCadastro: new Date() });
+    this.setState({status: 'PENDENTE'});
+    
+    const { nomeMedicamento, quantidade, status, dataCadatro, dataValidade } = this.state;
+    console.log('medicamento = ' + nomeMedicamento);
+    console.log('quantidade = ' + quantidade);
+    console.log('status = ' + status);
+    console.log('dataCadastro = ' + dataCadatro);
+    console.log('dataValidade = ' + dataValidade);
+
+    try {
+      console.log("Entrou para adicionar doação!");
+
+      await api
+        .post("/doacoes", {'nomeMedicamento': nomeMedicamento, 'quantidade': quantidade, 'status': status, 'dataDoacao': dataCadatro, 'dataValidade': dataValidade})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);
+          // if (JSON.stringify(this.state.nomeMedicamento) !== JSON.stringify(res.data)) {
+          //   this.setState({ esperandoAjax: false });
+          //   this.setState({ listaMedicamentos: res.data });
+          //   console.log("alterou estado");
+          //   console.log(res.data);
+          // }
+          // this.props.history.push("/doacoes");
+          alert("Doação " + nomeMedicamento + " adicionada com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: 'Ocorreu um erro ao adicionar doação!' });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -16,7 +77,7 @@ class NovaDoacao extends React.Component {
                   <h5 className="title">Nova Doação</h5>
                 </CardHeader>
                 <CardBody>
-                  <form>
+                  <form onSubmit={this.handleSubmit}>
 
                     <FormInputs
                       ncols={["col-md-12"]}
@@ -26,7 +87,10 @@ class NovaDoacao extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            defaultValue: ""
+                            defaultValue: "",
+                            name: "nomeMedicamento",
+                            value: this.state.nomeMedicamento,
+                            onChange: this.handleChange
                           }
                         }
                       ]}
@@ -36,41 +100,35 @@ class NovaDoacao extends React.Component {
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "Tamanho",
-                          inputProps: {
-                            type: "number",
-                            placeholder: "",
-                            defaultValue: ""
-                          }
-                        },
-                        {
                           label: "Quantidade",
                           inputProps: {
                             type: "number",
                             placeholder: "",
-                            defaultValue: ""
+                            defaultValue: "",
+                            name: "quantidade",
+                            value: this.state.quantidade,
+                            onChange: this.handleChange
                           }
-                        }
-                      ]}
-                    />
-
-                    <FormInputs
-                      ncols={["col-md-12"]}
-                      proprieties={[
+                        },
                         {
-                          label: "Nome do Médico",
+                          label: "Data da validade",
                           inputProps: {
-                            type: "text",
+                            type: "date",
                             placeholder: "",
-                            defaultValue: ""
+                            defaultValue: "",
+                            name: "dataValidade",
+                            value: this.state.dataValidade,
+                            onChange: this.handleChange
                           }
-                        }
+                        }                        
                       ]}
                     />
-                  </form>
 
-                  <Button color="danger" className="float-left" href="/doacoes">Cancelar</Button>
-                  <Button color="info" className="float-right" href="/doacoes">Salvar</Button>
+                    <input className="btn btn-info float-right" type="submit" value="Adicionar" />  
+                    <Button color="danger" className="float-right" href="/doacoes">Cancelar</Button>
+                    {/* <Button color="info" className="float-right" href="/doacoes">Salvar</Button> */}
+
+                  </form>
                   
                 </CardBody>
               </Card>
