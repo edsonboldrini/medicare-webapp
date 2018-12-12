@@ -77,7 +77,6 @@ class NovoMedicamento extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            defaultValue: "",
                             name: "nomeMedicamento",
                             value: this.state.nomeMedicamento,
                             onChange: this.handleChange

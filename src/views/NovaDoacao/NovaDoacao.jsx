@@ -11,7 +11,7 @@ class NovaDoacao extends React.Component {
       nomeMedicamento: '',
       quantidade: '',
       status: '',
-      dataCadatro: '',
+      dataCadatro: new Date(),
       dataValidade: ''
     }
 
@@ -25,8 +25,7 @@ class NovaDoacao extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();      
-    
-    this.setState({dataCadastro: new Date() });
+        
     this.setState({status: 'PENDENTE'});
     
     const { nomeMedicamento, quantidade, status, dataCadatro, dataValidade } = this.state;
@@ -87,7 +86,6 @@ class NovaDoacao extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            defaultValue: "",
                             name: "nomeMedicamento",
                             value: this.state.nomeMedicamento,
                             onChange: this.handleChange
@@ -104,7 +102,6 @@ class NovaDoacao extends React.Component {
                           inputProps: {
                             type: "number",
                             placeholder: "",
-                            defaultValue: "",
                             name: "quantidade",
                             value: this.state.quantidade,
                             onChange: this.handleChange
@@ -115,7 +112,6 @@ class NovaDoacao extends React.Component {
                           inputProps: {
                             type: "date",
                             placeholder: "",
-                            defaultValue: "",
                             name: "dataValidade",
                             value: this.state.dataValidade,
                             onChange: this.handleChange

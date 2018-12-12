@@ -12,6 +12,7 @@ import NovoPedido from "../views/NovoPedido/NovoPedido.jsx";
 import NovaDoacao from "../views/NovaDoacao/NovaDoacao.jsx";
 import NovoMedicamento from "../views/NovoMedicamento/NovoMedicamento.jsx";
 import NovoUsuario from "../views/NovoUsuario/NovoUsuario.jsx";
+import Cadastro from "../views/Cadastro/Cadastro.jsx";
 
 // import Maps from "views/Maps/Maps.jsx";
 // import Upgrade from "views/Upgrade/Upgrade.jsx";
@@ -96,6 +97,13 @@ var dashRoutes = [
     name: "Novo Usuário",
     icon: "files_paper",
     component: NovoUsuario,
+    invisible: true
+  },
+  {
+    path: "/cadastro",
+    name: "Cadastro",
+    icon: "files_paper",
+    component: Cadastro,
     invisible: true
   },
   // { path: "/icons", name: "Icons", icon: "design_image", component: Icons },

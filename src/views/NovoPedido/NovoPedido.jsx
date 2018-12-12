@@ -11,7 +11,7 @@ class NovoPedido extends React.Component {
       nomeRemedio: '',
       quantidade: '',
       status: '',
-      dataCadatro: '',
+      dataCadatro: new Date(),
       nomeMedico: ''
     }
 
@@ -26,11 +26,7 @@ class NovoPedido extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();      
 
-    var today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    
-    this.state.dataCadastro = date;
-    this.state.status = 'PENDENTE';
+    this.setState({status: 'PENDENTE'});
     
     const { nomeRemedio, quantidade, status, dataCadatro, nomeMedico } = this.state;
     console.log('medicamento = ' + nomeRemedio);
@@ -90,7 +86,6 @@ class NovoPedido extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            defaultValue: "",
                             name: "nomeRemedio",
                             value: this.state.nomeRemedio,
                             onChange: this.handleChange
@@ -107,7 +102,6 @@ class NovoPedido extends React.Component {
                           inputProps: {
                             type: "number",
                             placeholder: "",
-                            defaultValue: "",
                             name: "quantidade",
                             value: this.state.quantidade,
                             onChange: this.handleChange
@@ -124,7 +118,6 @@ class NovoPedido extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            defaultValue: "",
                             name: "nomeMedico",
                             value: this.state.nomeMedico,
                             onChange: this.handleChange
