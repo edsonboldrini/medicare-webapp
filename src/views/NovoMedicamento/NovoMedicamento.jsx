@@ -40,7 +40,7 @@ class NovoMedicamento extends React.Component {
           //   console.log("alterou estado");
           //   console.log(res.data);
           // }
-          this.props.history.push("/medicamentos");
+          //this.props.history.push("/medicamentos");
           alert("Medicamento " + nomeMedicamento + " adicionado com sucesso!");
         })
         .catch(res => {
@@ -51,7 +51,7 @@ class NovoMedicamento extends React.Component {
     }
     catch (err) {
       console.log(err);
-      this.setState({ error: 'Ocorreu um erro ao aadicionar medicamento!' });
+      this.setState({ error: '' });
     }
   }
 

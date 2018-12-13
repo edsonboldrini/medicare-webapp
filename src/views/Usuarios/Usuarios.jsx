@@ -77,12 +77,12 @@ class Usuarios extends React.Component {
                 <td className="text-center">{item.tipo == 1 ? "Cliente" : "Farmaceutico"}</td>
                 <td className="text-center">{this.formataData(item.dataCadastro)}</td>
                 <td className="text-right">
-                  <button className="btn-icon btn btn-info btn-sm m-r-3">
+                  {/* <button className="btn-icon btn btn-info btn-sm m-r-3">
                     <i className="now-ui-icons users_single-02"></i>
                   </button>
                   <button className="btn-icon btn btn-success btn-sm m-r-3">
                     <i className="now-ui-icons ui-2_settings-90"></i>
-                  </button>
+                  </button> */}
                   <button className="btn-icon btn btn-danger btn-sm">
                     <i className="now-ui-icons ui-1_simple-remove"></i>
                   </button>

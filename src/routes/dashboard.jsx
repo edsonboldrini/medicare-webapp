@@ -49,7 +49,6 @@ var dashRoutes = [
     icon: "users_single-02",
     component: Usuarios
   },
-
   {
     path: "/login",
     name: "Login",

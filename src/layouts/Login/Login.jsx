@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Login.css";
 
+import { Route, Switch, Redirect } from "react-router-dom";
+
 import { Card, CardHeader, CardBody, CardFooter, Button, Row, Col } from "reactstrap";
 import { PanelHeader, FormInputs, CardAuthor, CardSocials } from "../../components";
 import api from "../../services/api";
@@ -62,7 +64,8 @@ export default class Login extends Component {
           
           localStorage.setItem('token', res.data.token);        
 
-          this.props.history.push("/dashboard");          
+          this.props.history.push("/doacoes");    
+
         })
         .catch(res => {
           console.log(res);

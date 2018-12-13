@@ -47,6 +47,28 @@ class Medicamentos extends React.Component {
     }
   }
 
+  async removeMedicamento(item){   
+    try {
+      console.log("Entrou para excluir medicamento!");
+      console.log(item);
+      await api
+        .delete("/medicamentos/" + item._id, {'id': item._id})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);          
+          alert("Medicamento excluido com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: '' });
+    }
+  }
+
   componentDidMount() {
     this.atualizarLista();
   }
@@ -87,7 +109,7 @@ class Medicamentos extends React.Component {
                   <button className="btn-icon btn btn-success btn-sm m-r-3">
                     <i className="now-ui-icons ui-2_settings-90"></i>
                   </button> */}
-                  <button className="btn-icon btn btn-danger btn-sm">
+                  <button className="btn-icon btn btn-danger btn-sm" onClick={() => {this.removeMedicamento(item)}} key={item}>
                     <i className="now-ui-icons ui-1_simple-remove"></i>
                   </button>
                 </td>

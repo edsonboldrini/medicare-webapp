@@ -60,7 +60,7 @@ class NovoPedido extends React.Component {
     }
     catch (err) {
       console.log(err);
-      this.setState({ error: 'Ocorreu um erro ao aadicionar medicamento!' });
+      this.setState({ error: '' });
     }
   }
 

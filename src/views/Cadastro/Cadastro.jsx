@@ -1,20 +1,18 @@
 import React, { Component } from "react";
-import "./Login.css";
-
-import { Route, Switch, Redirect } from "react-router-dom";
+import "./Cadastro.css";
 
 import { Card, CardHeader, CardBody, CardFooter, Button, Row, Col } from "reactstrap";
 import { PanelHeader, FormInputs, CardAuthor, CardSocials } from "../../components";
 import api from "../../services/api";
-import Dashboard from "../../layouts/Dashboard/Dashboard";
 
-export default class Login extends Component {
+export default class Cadastro extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      passwordConfirm: ""
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -65,7 +63,7 @@ export default class Login extends Component {
           
           localStorage.setItem('token', res.data.token);        
 
-          this.props.history.push("/doacoes");       
+          this.props.history.push("/dashboard");          
         })
         .catch(res => {
           console.log(res);
@@ -83,12 +81,7 @@ export default class Login extends Component {
     return (
       <div className="Login">
 
-        <form onSubmit={this.handleSubmit}>    
-
-          <Button color="info" className="" href="/cadastro">Criar novo usuário</Button>
-          
-          <br/>
-
+        <form onSubmit={this.handleSubmit}>                        
           <FormInputs
             ncols={["col-md-12"]}
             proprieties={[
@@ -120,8 +113,24 @@ export default class Login extends Component {
               }
             ]}
           />
+
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Confirmar Senha",
+                inputProps: {
+                  type: "password",
+                  placeholder: "",
+                  name: "passwordConfirm",
+                  value: this.state.passwordConfirm,
+                  onChange: this.handleChange
+                }
+              }
+            ]}
+          />
           
-          <Button color="success" className="float-right" type="submit" disabled={!this.validateForm()}>Entrar</Button>
+          <Button color="success" className="float-right" type="submit" disabled={!this.validateForm()}>Criar Usuário</Button>
 
           {/* ### TAMBÉM PODE SER DESSA FORMA */}
           {/* <input className="btn btn-success float-right" type="submit" value="Entrar" disabled={!this.validateForm()}/>   */}
