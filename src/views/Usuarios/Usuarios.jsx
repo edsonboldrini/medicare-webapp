@@ -84,9 +84,9 @@ class Usuarios extends React.Component {
                   <button className="btn-icon btn btn-success btn-sm m-r-3">
                     <i className="now-ui-icons ui-2_settings-90"></i>
                   </button> */}
-                  <button className="btn-icon btn btn-danger btn-sm">
+                  {/* <button className="btn-icon btn btn-danger btn-sm">
                     <i className="now-ui-icons ui-1_simple-remove"></i>
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             );
