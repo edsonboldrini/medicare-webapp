@@ -144,11 +144,12 @@ class TelaDoacoes extends React.Component {
       <Table responsive>
         <thead className="text-primary">
           <tr>
-            <th className="text-left">Remédio</th>            
+            <th className="text-left">Remédio</th>       
+            {/* <th className="text-center">Usuário</th>      */}
             <th className="text-center">Quantidade</th>
-            <th className="text-center">Status</th> 
             <th className="text-center">Cadastro</th> 
             <th className="text-center">Validade</th> 
+            <th className="text-center">Status</th> 
             <th className="text-right" style={{ paddingRight: 25 }}>Ações</th> 
           </tr>
         </thead>
@@ -156,11 +157,12 @@ class TelaDoacoes extends React.Component {
           {this.state.listaDoacoes.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.nome : ""}</td>                
+                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.nome : ""}</td> 
+                {/* <td className="text-center">{item.user.email}</td>                */}
                 <td className="text-center">{item.quantidade}</td>
-                <td className="text-center">{item.status}</td>
                 <td className="text-center">{this.formataData(item.dataCadastro)}</td>
                 <td className="text-center">{this.formataData(item.dataValidade)}</td>
+                <td className="text-center">{item.status}</td>
                 <td className="text-right">
                   <button className="btn-icon btn btn-success btn-sm m-r-3" onClick={() => {this.aprovaDoacao(item)}}>
                     <i className="now-ui-icons ui-1_check"></i>
