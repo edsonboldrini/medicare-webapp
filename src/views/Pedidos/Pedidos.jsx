@@ -86,7 +86,7 @@ class TelaPedidos extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/pedidos/" + item._id + "/atualizarSituacao", {'status': "CANCELADO"})
+        .post("/pedidos/" + item._id + "/atualizarSituacao", {'status': "CANCELADO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
