@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { PanelHeader } from "../../components";
 import api from "../../services/api";
+import axios from "axios";
 
 class Medicamentos extends React.Component {
   state = {
@@ -52,8 +53,11 @@ class Medicamentos extends React.Component {
     try {
       console.log("Entrou para excluir medicamento!");
       console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
       await api
-        .delete("/medicamentos/" + item._id, {'id': item._id})
+        .delete("/medicamentos/" + item._id, {params: {'id': item._id}})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
@@ -68,6 +72,8 @@ class Medicamentos extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   componentDidMount() {

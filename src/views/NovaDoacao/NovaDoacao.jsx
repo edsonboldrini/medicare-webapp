@@ -92,7 +92,7 @@ class NovaDoacao extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            name: "nomeMedicamento",
+                            name: "medicamentoComercial",
                             value: this.state.medicamentoComercial,
                             onChange: this.handleChange
                           }

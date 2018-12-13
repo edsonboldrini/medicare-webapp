@@ -61,7 +61,7 @@ class TelaDoacoes extends React.Component {
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
-          alert("Pedido aprovado com sucesso!");
+          alert("Doação aprovada com sucesso!");
         })
         .catch(res => {
           console.log(res);
@@ -72,6 +72,8 @@ class TelaDoacoes extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   async cancelaDoacao(item){
@@ -86,7 +88,7 @@ class TelaDoacoes extends React.Component {
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
-          alert("Pedido aprovado com sucesso!");
+          alert("Doação cancelada com sucesso!");
         })
         .catch(res => {
           console.log(res);
@@ -97,6 +99,8 @@ class TelaDoacoes extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   async removeDoacao(item){   
@@ -107,7 +111,7 @@ class TelaDoacoes extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .delete("/doacoes/" + item._id, {'id': item._id})
+        .delete("/doacoes/" + item._id, {params: {'id': item._id}})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
@@ -122,6 +126,8 @@ class TelaDoacoes extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   componentDidMount() {
@@ -220,7 +226,7 @@ class TelaDoacoes extends React.Component {
               <Card>
                 <CardHeader>
                   <CardTitle className="float-left">Lista de Doações</CardTitle>
-                  <Button color="info" className="float-right" href="/nova-doacao">Adicionar</Button>
+                  {/* <Button color="info" className="float-right" href="/nova-doacao">Adicionar</Button> */}
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }
