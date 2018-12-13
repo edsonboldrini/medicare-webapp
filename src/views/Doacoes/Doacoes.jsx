@@ -57,7 +57,7 @@ class TelaDoacoes extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/doacoes/" + item._id, {'status': "ACEITO"})
+        .post("/doacoes/" + item._id + "/atualizarSituacao", {'status': "ACEITO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
@@ -84,7 +84,7 @@ class TelaDoacoes extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/doacoes/" + item._id, {'status': "CANCELADO"})
+        .post("/doacoes/" + item._id + "/atualizarSituacao", {'status': "CANCELADO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
