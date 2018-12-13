@@ -58,11 +58,12 @@ class TelaPedidos extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .post("/pedidos/" + item._id, {'status': "ACEITO"})
+        .post("/pedidos/" + item._id + "/atualizarSituacao", {'status': "ACEITO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
           alert("Pedido aprovado com sucesso!");
+          this.atualizarLista();
         })
         .catch(res => {
           console.log(res);
@@ -83,11 +84,12 @@ class TelaPedidos extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/pedidos/" + item._id, {'status': "CANCELADO"})
+        .put("/pedidos/" + item._id + "/atualizarSituacao", {'status': "CANCELADO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
           alert("Pedido aprovado com sucesso!");
+          this.atualizarLista();
         })
         .catch(res => {
           console.log(res);
@@ -113,6 +115,7 @@ class TelaPedidos extends React.Component {
           console.log("Recebeu retorno");
           console.log(res);          
           alert("Pedido excluido com sucesso!");
+          this.atualizarLista();
         })
         .catch(res => {
           console.log(res);
