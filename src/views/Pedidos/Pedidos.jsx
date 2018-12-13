@@ -52,7 +52,7 @@ class TelaPedidos extends React.Component {
 
   async aprovaPedido(item){
     try {
-      console.log("Entrou para excluir pedido!");
+      console.log("Entrou para aprovar pedido!");
       console.log(item);
 
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
@@ -79,7 +79,7 @@ class TelaPedidos extends React.Component {
 
   async cancelaPedido(item){
     try {
-      console.log("Entrou para excluir pedido!");
+      console.log("Entrou para cancelar pedido!");
       console.log(item);
 
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
@@ -89,7 +89,7 @@ class TelaPedidos extends React.Component {
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
-          alert("Pedido aprovado com sucesso!");
+          alert("Pedido cancelado com sucesso!");
         })
         .catch(res => {
           console.log(res);
