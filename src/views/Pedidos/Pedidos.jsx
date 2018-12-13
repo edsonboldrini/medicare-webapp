@@ -58,7 +58,7 @@ class TelaPedidos extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/pedidos/" + item._id, {'status': "APROVADO"})
+        .put("/pedidos/" + item._id, {'status': "ACEITO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
@@ -73,6 +73,8 @@ class TelaPedidos extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   async cancelaPedido(item){
@@ -98,6 +100,8 @@ class TelaPedidos extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   async removePedido(item){   
@@ -108,7 +112,7 @@ class TelaPedidos extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .delete("/pedidos/" + item._id, {'id': item._id})
+        .delete("/pedidos/" + item._id, {params: {'id': item._id}})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
@@ -123,6 +127,8 @@ class TelaPedidos extends React.Component {
       console.log(err);
       this.setState({ error: '' });
     }
+
+    this.atualizarLista();
   }
 
   componentDidMount() {
@@ -223,7 +229,7 @@ class TelaPedidos extends React.Component {
               <Card>
                 <CardHeader>
                   <CardTitle className="float-left">Lista de Pedidos</CardTitle>
-                  <Button color="info" className="float-right" href="/novo-pedido">Adicionar</Button>
+                  {/* <Button color="info" className="float-right" href="/novo-pedido">Adicionar</Button> */}
                 </CardHeader>
                 <CardBody>
                   { this.montaExibicao() }
