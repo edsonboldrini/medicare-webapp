@@ -49,13 +49,13 @@ var dashRoutes = [
     icon: "users_single-02",
     component: Usuarios
   },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "files_paper",
-    component: Login,
-    invisible: true
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   icon: "files_paper",
+  //   component: Login,
+  //   invisible: true
+  // },
   {
     path: "/doacoes2/",
     name: "Exibir Doação",

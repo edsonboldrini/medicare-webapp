@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { Card, CardHeader, CardBody, CardFooter, Button, Row, Col } from "reactstrap";
 
 import { PanelHeader, FormInputs, CardAuthor, CardSocials } from "../../components";
@@ -56,6 +57,11 @@ class NovoMedicamento extends React.Component {
   }
 
   render() {
+
+    if (!localStorage.getItem('token')) {
+      return <Redirect to={'/login'} />;
+    }
+
     return (
       <div>
         <PanelHeader size="sm" />

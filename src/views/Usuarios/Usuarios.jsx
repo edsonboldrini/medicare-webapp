@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -126,6 +127,11 @@ class Usuarios extends React.Component {
   }
 
   render() {
+
+    if (!localStorage.getItem('token')) {
+      return <Redirect to={'/login'} />;
+    }
+
     return (
       <div>
         <PanelHeader size="sm" />
