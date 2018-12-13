@@ -156,7 +156,7 @@ class TelaDoacoes extends React.Component {
           {this.state.listaDoacoes.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.medicamentoComercial != null && item.medicamentoComercial.medicamento != null ? item.medicamentoComercial.medicamento.nomeMedicamento : ""}</td>                
+                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.nome : ""}</td>                
                 <td className="text-center">{item.quantidade}</td>
                 <td className="text-center">{item.status}</td>
                 <td className="text-center">{this.formataData(item.dataCadastro)}</td>
