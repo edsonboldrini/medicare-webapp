@@ -126,7 +126,7 @@ export default class Login extends Component {
               }
             ]}
           />
-          <Button color="info" className="" href="/cadastro">Me Cadastrar</Button>
+          {/* <Button color="info" className="" href="/cadastro">Me Cadastrar</Button> */}
           <Button color="success" className="float-right" type="submit" disabled={!this.validateForm()}>Entrar</Button>
 
           {/* ### TAMBÉM PODE SER DESSA FORMA */}
