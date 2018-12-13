@@ -9,7 +9,7 @@ class NovaDoacao extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nomeMedicamento: '',
+      medicamentoComercial: '',
       quantidade: '',
       status: '',
       dataCadatro: new Date(),
@@ -29,8 +29,8 @@ class NovaDoacao extends React.Component {
         
     this.setState({status: 'PENDENTE'});
     
-    const { nomeMedicamento, quantidade, status, dataCadatro, dataValidade } = this.state;
-    console.log('medicamento = ' + nomeMedicamento);
+    const { medicamentoComercial, quantidade, status, dataCadatro, dataValidade } = this.state;
+    console.log('medicamentoComercial = ' + medicamentoComercial);
     console.log('quantidade = ' + quantidade);
     console.log('status = ' + status);
     console.log('dataCadastro = ' + dataCadatro);
@@ -40,7 +40,7 @@ class NovaDoacao extends React.Component {
       console.log("Entrou para adicionar doação!");
 
       await api
-        .post("/doacoes", {'nomeMedicamento': nomeMedicamento, 'quantidade': quantidade, 'status': status, 'dataDoacao': dataCadatro, 'dataValidade': dataValidade})
+        .post("/doacoes", {'medicamentoComercial': medicamentoComercial, 'quantidade': quantidade, 'status': status, 'dataDoacao': dataCadatro, 'dataValidade': dataValidade})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);
@@ -50,8 +50,8 @@ class NovaDoacao extends React.Component {
           //   console.log("alterou estado");
           //   console.log(res.data);
           // }
-          // this.props.history.push("/doacoes");
-          alert("Doação " + nomeMedicamento + " adicionada com sucesso!");
+          //this.props.history.push("/doacoes");
+          alert("Doação " + medicamentoComercial + " adicionada com sucesso!");
         })
         .catch(res => {
           console.log(res);
@@ -93,7 +93,7 @@ class NovaDoacao extends React.Component {
                             type: "text",
                             placeholder: "",
                             name: "nomeMedicamento",
-                            value: this.state.nomeMedicamento,
+                            value: this.state.medicamentoComercial,
                             onChange: this.handleChange
                           }
                         }
