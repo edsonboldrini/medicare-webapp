@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { PanelHeader } from "../../components";
 import api from "../../services/api";
+import axios from 'axios';
 
 class TelaDoacoes extends React.Component {
   state = {
@@ -52,6 +53,9 @@ class TelaDoacoes extends React.Component {
     try {
       console.log("Entrou para excluir doação!");
       console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
       await api
         .delete("/doacoes/" + item._id, {'id': item._id})
         .then(res => {
