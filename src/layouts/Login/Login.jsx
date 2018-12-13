@@ -6,6 +6,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Card, CardHeader, CardBody, CardFooter, Button, Row, Col } from "reactstrap";
 import { PanelHeader, FormInputs, CardAuthor, CardSocials } from "../../components";
 import api from "../../services/api";
+import ImagemLogo from "../../assets/img/logo.png";
 
 export default class Login extends Component {
   constructor(props) {
@@ -55,8 +56,8 @@ export default class Login extends Component {
 
       await api
         .post("/users/login", {
-          'email': this.state.email,
-          'password': this.state.password,
+          'email': email,
+          'password': password,
         })
         .then(res => {
           console.log("Recebeu retorno");
@@ -64,16 +65,17 @@ export default class Login extends Component {
           
           localStorage.setItem('token', res.data.token);        
 
-          this.props.history.push("/doacoes");    
-
+          this.props.history.push("/pedidos");       
         })
         .catch(res => {
+          console.log("Deu erro");
           console.log(res);
           this.setState({ error: JSON.stringify(res) + "" });
         });
 
     }
     catch (err) {
+      console.log("Deu erro 2");
       console.log(err);
       this.setState({ error: 'Ocorreu um erro ao adicionar doação!' });
     }
@@ -83,9 +85,13 @@ export default class Login extends Component {
     return (
       <div className="Login">
 
+
+
         <form onSubmit={this.handleSubmit}>    
 
-          <Button color="info" className="" href="/cadastro">Criar novo usuário</Button>
+          <div className="image" className="text-center" style={{ marginBottom: 30 }}>
+            <img src={ImagemLogo} alt="..." />
+          </div>
           
           <br/>
 
@@ -120,7 +126,7 @@ export default class Login extends Component {
               }
             ]}
           />
-          
+          <Button color="info" className="" href="/cadastro">Me Cadastrar</Button>
           <Button color="success" className="float-right" type="submit" disabled={!this.validateForm()}>Entrar</Button>
 
           {/* ### TAMBÉM PODE SER DESSA FORMA */}

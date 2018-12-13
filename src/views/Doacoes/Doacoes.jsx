@@ -49,6 +49,56 @@ class TelaDoacoes extends React.Component {
     }
   }
 
+  async aprovaDoacao(item){
+    try {
+      console.log("Entrou para aprovar doacao!");
+      console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
+      await api
+        .put("/doacoes/" + item._id, {'status': "APROVADO"})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);          
+          alert("Pedido aprovado com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: '' });
+    }
+  }
+
+  async cancelaDoacao(item){
+    try {
+      console.log("Entrou para cancelar doacao!");
+      console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
+      await api
+        .put("/doacoes/" + item._id, {'status': "CANCELADO"})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);          
+          alert("Pedido aprovado com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: '' });
+    }
+  }
+
   async removeDoacao(item){   
     try {
       console.log("Entrou para excluir doação!");
@@ -88,8 +138,7 @@ class TelaDoacoes extends React.Component {
       <Table responsive>
         <thead className="text-primary">
           <tr>
-            <th className="text-left">Remédio</th>
-            {/* <th className="text-center">Tamanho</th> */}
+            <th className="text-left">Remédio</th>            
             <th className="text-center">Quantidade</th>
             <th className="text-center">Status</th> 
             <th className="text-center">Cadastro</th> 
@@ -101,20 +150,19 @@ class TelaDoacoes extends React.Component {
           {this.state.listaDoacoes.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.medicamento.nomeMedicamento : ""}</td>
-                {/* <td className="text-center">{item.tamanho + " mg"}</td> */}
+                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.medicamento.nomeMedicamento : ""}</td>                
                 <td className="text-center">{item.quantidade}</td>
                 <td className="text-center">{item.status}</td>
                 <td className="text-center">{this.formataData(item.dataCadastro)}</td>
                 <td className="text-center">{this.formataData(item.dataValidade)}</td>
                 <td className="text-right">
-                  {/* <button className="btn-icon btn btn-info btn-sm m-r-3">
-                    <i className="now-ui-icons users_single-02"></i>
-                  </button> */}
-                  <button className="btn-icon btn btn-success btn-sm m-r-3">
-                    <i className="now-ui-icons ui-2_settings-90"></i>
+                  <button className="btn-icon btn btn-success btn-sm m-r-3" onClick={() => {this.aprovaDoacao(item)}}>
+                    <i className="now-ui-icons ui-1_check"></i>
                   </button>
-                  <button className="btn-icon btn btn-danger btn-sm" onClick={() => {this.removeDoacao(item)}} key={item}>
+                  <button className="btn-icon btn btn-warning btn-sm m-r-3" onClick={() => {this.cancelaDoacao(item)}}>
+                    <i className="now-ui-icons ui-1_simple-delete"></i>
+                  </button>
+                  <button className="btn-icon btn btn-danger btn-sm" onClick={() => {this.removeDoacao(item)}}>
                     <i className="now-ui-icons ui-1_simple-remove"></i>
                   </button>
                 </td>

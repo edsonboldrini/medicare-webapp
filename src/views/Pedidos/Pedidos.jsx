@@ -14,6 +14,7 @@ import {
 import { PanelHeader } from "../../components";
 
 import api from "../../services/api";
+import axios from "axios";
 
 class TelaPedidos extends React.Component {
   state = {
@@ -49,10 +50,63 @@ class TelaPedidos extends React.Component {
     }
   }
 
+  async aprovaPedido(item){
+    try {
+      console.log("Entrou para excluir pedido!");
+      console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
+      await api
+        .put("/pedidos/" + item._id, {'status': "APROVADO"})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);          
+          alert("Pedido aprovado com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: '' });
+    }
+  }
+
+  async cancelaPedido(item){
+    try {
+      console.log("Entrou para excluir pedido!");
+      console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
+      await api
+        .put("/pedidos/" + item._id, {'status': "CANCELADO"})
+        .then(res => {
+          console.log("Recebeu retorno");
+          console.log(res);          
+          alert("Pedido aprovado com sucesso!");
+        })
+        .catch(res => {
+          console.log(res);
+          this.setState({ error: JSON.stringify(res) + "" });
+        });
+    }
+    catch (err) {
+      console.log(err);
+      this.setState({ error: '' });
+    }
+  }
+
   async removePedido(item){   
     try {
       console.log("Entrou para excluir pedido!");
       console.log(item);
+
+      axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
+
       await api
         .delete("/pedidos/" + item._id, {'id': item._id})
         .then(res => {
@@ -79,7 +133,7 @@ class TelaPedidos extends React.Component {
     return (
       <div className="typography-line">
           <h4>
-            Ainda não há nenhum pedido cadastrada!
+            Ainda não há nenhum pedido cadastrado!
           </h4>
         </div>
     )
@@ -100,7 +154,6 @@ class TelaPedidos extends React.Component {
         <thead className="text-primary">
           <tr>
             <th className="text-left">Remédio</th>
-            {/* <th className="text-center">Tamanho</th> */}
             <th className="text-center">Quantidade</th>
             <th className="text-center">Status</th>
             <th className="text-center">Data</th> 
@@ -111,19 +164,18 @@ class TelaPedidos extends React.Component {
           {this.state.listaPedidos.map((item, index) => {
             return (
               <tr key={item._id}>
-                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.medicamento.nomeMedicamento : ""}</td>
-                {/* <td className="text-center">{item.tamanho  + " mg"}</td> */}
+                <td>{item.medicamentoComercial != null ? item.medicamentoComercial.medicamento.nomeMedicamento : ""}</td>                
                 <td className="text-center">{item.quantidade}</td>
                 <td className="text-center">{item.status}</td>
                 <td className="text-center">{this.formataData(item.dataCadastro) }</td>
-                <td className="text-right">
-                  {/* <button className="btn-icon btn btn-info btn-sm m-r-3">
-                    <i className="now-ui-icons users_single-02"></i>
-                  </button> */}
-                  <button className="btn-icon btn btn-success btn-sm m-r-3">
-                    <i className="now-ui-icons ui-2_settings-90"></i>
+                <td className="text-right">            
+                  <button className="btn-icon btn btn-success btn-sm m-r-3" onClick={() => {this.aprovaPedido(item)}}>
+                    <i className="now-ui-icons ui-1_check"></i>
                   </button>
-                  <button className="btn-icon btn btn-danger btn-sm" onClick={() => {this.removePedido(item)}} key={item}>
+                  <button className="btn-icon btn btn-warning btn-sm m-r-3" onClick={() => {this.cancelaPedido(item)}}>
+                    <i className="now-ui-icons ui-1_simple-delete"></i>
+                  </button>
+                  <button className="btn-icon btn btn-danger btn-sm" onClick={() => {this.removePedido(item)}}>
                     <i className="now-ui-icons ui-1_simple-remove"></i>
                   </button>
                 </td>
