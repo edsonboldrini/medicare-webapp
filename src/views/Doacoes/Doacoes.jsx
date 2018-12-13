@@ -57,7 +57,7 @@ class TelaDoacoes extends React.Component {
       axios.defaults.headers.common['Authorization'] = await localStorage.getItem('token');
 
       await api
-        .put("/doacoes/" + item._id, {'status': "APROVADO"})
+        .put("/doacoes/" + item._id, {'status': "ACEITO"})
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);          
