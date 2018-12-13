@@ -8,11 +8,12 @@ class NovoPedido extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nomeRemedio: '',
+      medicamentoComercial: '',
       quantidade: '',
       status: '',
       dataCadatro: new Date(),
-      nomeMedico: ''
+      nomeMedico: '',
+      crmMedico: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,18 +29,19 @@ class NovoPedido extends React.Component {
 
     this.setState({status: 'PENDENTE'});
     
-    const { nomeRemedio, quantidade, status, dataCadatro, nomeMedico } = this.state;
-    console.log('medicamento = ' + nomeRemedio);
+    const { medicamentoComercial, quantidade, status, dataCadatro, nomeMedico, crmMedico } = this.state;
+    console.log('medicamentoComercial = ' + medicamentoComercial);
     console.log('quantidade = ' + quantidade);
     console.log('status = ' + status);
     console.log('dataCadastro = ' + dataCadatro);
     console.log('nomeMedico = ' + nomeMedico);
+    console.log('crmMedico = ' + crmMedico);
 
     try {
       console.log("Entrou para adicionar pedido!");
 
       await api
-        .post("/pedidos", {'nomeRemedio': nomeRemedio, 'quantidade': quantidade, 'status': status, 'dataCadastro': dataCadatro, 'nomeMedico': nomeMedico })
+        .post("/pedidos", {'medicamentoComercial': medicamentoComercial, 'quantidade': quantidade, 'status': status, 'dataCadastro': dataCadatro, 'nomeMedico': nomeMedico, 'crmMedico': crmMedico })
         .then(res => {
           console.log("Recebeu retorno");
           console.log(res);
@@ -50,7 +52,7 @@ class NovoPedido extends React.Component {
           //   console.log(res.data);
           // }
           //this.props.history.push("/pedidos");
-          alert("Pedido " + nomeRemedio + " adicionado com sucesso!");
+          alert("Pedido " + medicamentoComercial + " adicionado com sucesso!");
         })
         .catch(res => {
           console.log(res);
@@ -86,8 +88,8 @@ class NovoPedido extends React.Component {
                           inputProps: {
                             type: "text",
                             placeholder: "",
-                            name: "nomeRemedio",
-                            value: this.state.nomeRemedio,
+                            name: "medicamentoComercial",
+                            value: this.state.medicamentoComercial,
                             onChange: this.handleChange
                           }
                         }
@@ -111,7 +113,7 @@ class NovoPedido extends React.Component {
                     />
 
                     <FormInputs
-                      ncols={["col-md-12"]}
+                      ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
                           label: "Nome do Médico",
@@ -120,6 +122,16 @@ class NovoPedido extends React.Component {
                             placeholder: "",
                             name: "nomeMedico",
                             value: this.state.nomeMedico,
+                            onChange: this.handleChange
+                          }
+                        },
+                        {
+                          label: "CRM do Médico",
+                          inputProps: {
+                            type: "text",
+                            placeholder: "",
+                            name: "crmMedico",
+                            value: this.state.crmMedico,
                             onChange: this.handleChange
                           }
                         }
